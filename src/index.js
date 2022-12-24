@@ -2,10 +2,12 @@ import { initializeApp } from "firebase/app";
 import {
   getFirestore,
   collection,
-  getDocs,
+  onSnapshot,
   addDoc,
   deleteDoc,
   doc,
+  query,
+  where
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -26,8 +28,31 @@ const db = getFirestore();
 // collection ref
 const colRef = collection(db, "books");
 
-// get collection data
-getDocs(colRef).then((snapshot) => {
+// rewritten colRef for queries
+// import query & where
+const q = query(colRef, where('author', '==', 'Raymond E. Feist'))
+// continue after real time collection
+
+// get collection data on initial load only
+// getDocs(colRef).then((snapshot) => {
+//   let books = [];
+//   snapshot.docs.forEach((doc) => {
+//     books.push({ ...doc.data(), id: doc.id });
+//   });
+//   console.log(books);
+// });
+
+// real time collection data
+onSnapshot(colRef, (snapshot) => {
+  let books = [];
+  snapshot.docs.forEach((doc) => {
+    books.push({ ...doc.data(), id: doc.id });
+  });
+  console.log(books);
+});
+
+// real time collection of queries
+onSnapshot(q, (snapshot) => {
   let books = [];
   snapshot.docs.forEach((doc) => {
     books.push({ ...doc.data(), id: doc.id });
@@ -56,6 +81,6 @@ deleteBookForm.addEventListener("submit", (e) => {
   // import deleteDoc & doc, which gets a ref to the document
   const docRef = doc(db, "books", deleteBookForm.id.value);
   deleteDoc(docRef).then(() => {
-    deleteBookForm.reset()
-  })
+    deleteBookForm.reset();
+  });
 });
