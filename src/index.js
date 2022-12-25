@@ -13,6 +13,7 @@ import {
   getDoc,
   updateDoc,
 } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAGNh_VwljSFAhudWCtouL_xS4nFi-zm2E",
@@ -28,6 +29,8 @@ initializeApp(firebaseConfig);
 
 // init services
 const db = getFirestore();
+// import getAuth from firebase/auth
+const auth = getAuth()
 
 // collection ref
 const colRef = collection(db, "books");
