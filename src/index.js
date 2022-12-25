@@ -7,7 +7,10 @@ import {
   deleteDoc,
   doc,
   query,
-  where
+  where,
+  orderBy,
+  serverTimestamp,
+  getDoc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -30,7 +33,7 @@ const colRef = collection(db, "books");
 
 // rewritten colRef for queries
 // import query & where
-const q = query(colRef, where('author', '==', 'Raymond E. Feist'))
+const q = query(colRef, orderBy("createdAt"));
 // continue after real time collection
 
 // get collection data on initial load only
@@ -68,6 +71,7 @@ addBookForm.addEventListener("submit", (e) => {
   addDoc(colRef, {
     title: addBookForm.title.value,
     author: addBookForm.author.value,
+    createdAt: serverTimestamp(),
   }).then(() => {
     // reset the form
     addBookForm.reset();
@@ -83,4 +87,16 @@ deleteBookForm.addEventListener("submit", (e) => {
   deleteDoc(docRef).then(() => {
     deleteBookForm.reset();
   });
+});
+
+// get a single document
+const docRef = doc(db, "books", "KHZ9CAVUmCfLVzwJpgBn");
+
+// getDoc(docRef).then((doc) => {
+//   console.log(doc.data(doc.id));
+// });
+
+// to get updates any time a doc is changed ie - subscription
+onSnapshot(docRef, (doc) => {
+  console.log(doc.data(), doc.id);
 });
