@@ -61,6 +61,23 @@ const unsubCol = onSnapshot(colRef, (snapshot) => {
   snapshot.docs.forEach((doc) => {
     books.push({ ...doc.data(), id: doc.id });
   });
+  const bookList = document.getElementById("booklist");
+  let booksHtml = "";
+  books.forEach((book) => {
+    booksHtml += `
+    <ul class="books-in-order">
+      <li class="book-pair">
+        <p class='author'>${book.author}<p>
+        <p class="title">${book.title}</p>
+        <div class="bookBtns">
+          <button class="booklistBtn"><i class="fa-solid fa-pen-to-square"></i></button>
+          <button class="booklistBtn"><i class="fa-solid fa-minus"></i></button>
+        </div>
+      </li>
+    </ul>
+    `;
+  });
+  bookList.innerHTML = booksHtml;
 });
 
 // real time collection of queries
