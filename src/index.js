@@ -13,7 +13,7 @@ import {
   getDoc,
   updateDoc,
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAGNh_VwljSFAhudWCtouL_xS4nFi-zm2E",
@@ -30,7 +30,7 @@ initializeApp(firebaseConfig);
 // init services
 const db = getFirestore();
 // import getAuth from firebase/auth
-const auth = getAuth()
+const auth = getAuth();
 
 // collection ref
 const colRef = collection(db, "books");
@@ -116,4 +116,21 @@ updateForm.addEventListener("submit", (e) => {
   }).then(() => {
     updateForm.reset();
   });
+});
+
+// signup
+const SignUpForm = document.querySelector(".signup");
+SignUpForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  // import createUserWithEmailAndPassword from fb/auth
+  const email = SignUpForm.email.value;
+  const pswrd = SignUpForm.password.value;
+  createUserWithEmailAndPassword(auth, email, pswrd)
+    .then((cred) => {
+      console.log("user created: ", cred.user);
+      SignUpForm.reset();
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 });
