@@ -11,6 +11,7 @@ import {
   orderBy,
   serverTimestamp,
   getDoc,
+  updateDoc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -90,7 +91,7 @@ deleteBookForm.addEventListener("submit", (e) => {
 });
 
 // get a single document
-const docRef = doc(db, "books", "KHZ9CAVUmCfLVzwJpgBn");
+const docRef = doc(db, "books", "AdezkBiRSPCgLcs4R3Zs");
 
 // getDoc(docRef).then((doc) => {
 //   console.log(doc.data(doc.id));
@@ -99,4 +100,17 @@ const docRef = doc(db, "books", "KHZ9CAVUmCfLVzwJpgBn");
 // to get updates any time a doc is changed ie - subscription
 onSnapshot(docRef, (doc) => {
   console.log(doc.data(), doc.id);
+});
+
+// update a document
+const updateForm = document.querySelector(".update");
+updateForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  // import updateDoc
+  const docRef = doc(db, "books", updateForm.id.value);
+  updateDoc(docRef, {
+    title: "updated title",
+  }).then(() => {
+    updateForm.reset();
+  });
 });
