@@ -4,59 +4,69 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Firebase 9</title>
 </head>
 <body>
-  <h1>Following Firebase Vanilla Tutorial</h1>
-  <h2>Firebase Firestore</h2>
+  <div class="container">
+    <h1>Firebase Vanilla Tutorial</h1>
+    <h2>Firebase Firestore</h2>
+    <form class="add">
+      <div class="input-box">
+        <label for="title">Title <i class="fa-solid fa-arrow-right"></i><input type="text" name="title" required></label>
+      </div>
 
-  <form class="add">
-    <label for="title">Title =>
-      <input type="text" name="title" required>
-    </label>
-    <label for="author">Author =>
-      <input type="text" name="author" required>
-    </label>
+      <div class="input-box">
+        <label for="author">Author <i class="fa-solid fa-arrow-right"></i><input type="text" name="author" required></label></div>
 
-    <button>Add New Book</button>
-  </form>
+      <button><i class="fa-solid fa-plus"></i>Add New Book</button>
+    </form>
 
-  <form class="delete">
-    <label for="id">Document Id =>
-      <input type="text" name="id" required>
-    </label>
-    <button>Delete Book</button>
-  </form>
-  
-  <form class="update">
-    <label id="id">Document Id =>
-      <input type="text" id="id" required>
-    </label>
-    <button>Update Book</button>
-  </form>
+    <form class="delete">
+      <div class="input-box">
+        <label for="id">Document Id <i class="fa-solid fa-arrow-right"></i><input type="text" name="id" required></label></div>
 
-  <h2>Firebase Auth</h2>
-  <form class="signup">
-    <label for="email">Email =>
-      <input type="email" name="email" required>
-    </label>
-    <label for="password">Password =>
-      <input type="password" name="password" required>
-    </label>
-    <button>Signup</button>
-  </form>
+      <button><i class="fa-solid fa-minus"></i>Delete Book</button>
+    </form>
+    
+    <form class="update">
+      <div class="input-box">
+        <label id="id">Document Id <i class="fa-solid fa-arrow-right"></i><input type="text" id="id" required></label></div>
 
-  <form class="login">
-    <label for="email">Email =>
-      <input type="email" name="email" required>
-    </label>
-    <label for="password">Password =>
-      <input type="password" name="password" required>
-    </label>
-    <button>Login</button>
-  </form>
+      <button><i class="fa-solid fa-pen-to-square"></i>Update Book</button>
+    </form>
 
-  <button class="logout">Logout</button>
+    <h2>Firebase Auth</h2>
+    <form class="signup">
+      <div class="input-box">
+        <label for="email">Email <i class="fa-solid fa-arrow-right"></i><input type="email" name="email" required></label></div>
+      
+
+      <div class="input-box">
+        <label for="password">Password <i class="fa-solid fa-arrow-right"></i><input type="password" name="password" required></label></div>
+
+      <button><i class="fa-solid fa-user-plus"></i>Signup</button>
+    </form>
+
+    <form class="login">
+      <div class="input-box">
+        <label for="email">Email <i class="fa-solid fa-arrow-right"></i><input type="email" name="email" required></label></div>
+
+      <div class="input-box">
+        <label for="password">Password <i class="fa-solid fa-arrow-right"></i><input type="password" name="password" required></label></div>
+
+      <button class="center"><i class="fa-solid fa-arrow-right-to-bracket"></i>Login</button>
+    </form>
+
+    <button class="logout center"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button>
+    <h2>Unsubscribing</h2>
+
+    <button class="unsub">Unsubscribe from db/auth changes</button>
+
+    <h2>Book Store</h2>
+    <main id="booklist"></main>
+  </div>
   
   <script src="bundle.js"></script>
 </body>

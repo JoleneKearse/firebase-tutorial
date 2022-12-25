@@ -56,16 +56,15 @@ const q = query(colRef, orderBy("createdAt"));
 // });
 
 // real time collection data
-onSnapshot(colRef, (snapshot) => {
+const unsubCol = onSnapshot(colRef, (snapshot) => {
   let books = [];
   snapshot.docs.forEach((doc) => {
     books.push({ ...doc.data(), id: doc.id });
   });
-  console.log(books);
 });
 
 // real time collection of queries
-onSnapshot(q, (snapshot) => {
+const unsubDoc = onSnapshot(q, (snapshot) => {
   let books = [];
   snapshot.docs.forEach((doc) => {
     books.push({ ...doc.data(), id: doc.id });
@@ -168,6 +167,15 @@ LoginForm.addEventListener("submit", (e) => {
 });
 
 // subscribing to auth changes
-onAuthStateChanged(auth, (user) => {
+const unsubAuth = onAuthStateChanged(auth, (user) => {
   console.log("user status changed: ", user);
+});
+
+// unsubscribing from db & auth changes
+const UnsubBtn = document.querySelector(".unsub");
+UnsubBtn.addEventListener("click", () => {
+  console.log("unsubscribing");
+  unsubCol();
+  unsubDoc();
+  unsubAuth();
 });
