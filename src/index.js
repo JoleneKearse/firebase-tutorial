@@ -70,8 +70,8 @@ const unsubCol = onSnapshot(colRef, (snapshot) => {
         <p class='author'>${book.author}<p>
         <p class="title">${book.title}</p>
         <div class="bookBtns">
-          <button class="booklistBtn"><i class="fa-solid fa-pen-to-square"></i></button>
-          <button class="booklistBtn"><i class="fa-solid fa-minus"></i></button>
+          <button class="booklistBtn" data-id="${book.id}"><i class="fa-solid fa-pen-to-square"></i></button>
+          <button class="booklistBtn" data-id="${book.id}"><i class="fa-solid fa-minus"></i></button>
         </div>
       </li>
     </ul>
