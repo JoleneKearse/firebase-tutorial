@@ -30,6 +30,22 @@ const firebaseConfig = {
   appId: "1:593305233485:web:23af68fc63091127099404",
 };
 
+// event listeners for booklist
+document.getElementById("booklist").addEventListener("click", function (e) {
+  if (e.target.dataset.edit) {
+    // display update modal
+    // grab the doc reference
+    const docRef = doc(db, 'books', e.target.dataset.edit)
+    // updateDoc(docRef, {
+    //   title: "updated title",
+    // }).then(() => {
+    //   updateForm.reset();
+    // });
+  } else if (e.target.dataset.delete) {
+    handleDelete();
+  }
+});
+
 // initialize firebase app
 initializeApp(firebaseConfig);
 
@@ -46,21 +62,13 @@ const colRef = collection(db, "books");
 const q = query(colRef, orderBy("createdAt"));
 // continue after real time collection
 
-// get collection data on initial load only
-// getDocs(colRef).then((snapshot) => {
-//   let books = [];
-//   snapshot.docs.forEach((doc) => {
-//     books.push({ ...doc.data(), id: doc.id });
-//   });
-//   console.log(books);
-// });
-
 // real time collection data
 const unsubCol = onSnapshot(colRef, (snapshot) => {
   let books = [];
   snapshot.docs.forEach((doc) => {
     books.push({ ...doc.data(), id: doc.id });
   });
+  // display docs to page
   const bookList = document.getElementById("booklist");
   let booksHtml = "";
   books.forEach((book) => {
@@ -70,8 +78,8 @@ const unsubCol = onSnapshot(colRef, (snapshot) => {
         <p class='author'>${book.author}<p>
         <p class="title">${book.title}</p>
         <div class="bookBtns">
-          <button class="booklistBtn" data-id="${book.id}"><i class="fa-solid fa-pen-to-square"></i></button>
-          <button class="booklistBtn" data-id="${book.id}"><i class="fa-solid fa-minus"></i></button>
+          <button class="booklistBtn" data-edit="${book.id}" id="edit${book.id}"><i class="fa-solid fa-pen-to-square"></i></button>
+          <button class="booklistBtn" data-delete="${book.id}" id="edit${book.id}"><i class="fa-solid fa-minus"></i></button>
         </div>
       </li>
     </ul>
